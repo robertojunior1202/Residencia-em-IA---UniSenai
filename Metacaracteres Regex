@@ -1,0 +1,56 @@
+### Padrões com Caracteres Especiais
+
+#### 1. Metacaracteres Básicos
+
+- **`.`**: Corresponde a qualquer caractere, exceto uma nova linha.
+  - Exemplo: `a.b` encontra "a_b", "a*b", "a b", mas não "ab".
+
+- **`^`**: Indica o início da string.
+  - Exemplo: `^Olá` corresponde a qualquer string que começa com "Olá".
+
+- **`$`**: Indica o final da string.
+  - Exemplo: `mundo$` corresponde a qualquer string que termina com "mundo".
+
+- **`[]`**: Define uma classe de caracteres, ou seja, um conjunto de caracteres permitidos.
+  - Exemplo: `[aeiou]` encontra qualquer vogal.
+
+- **`|`**: Operador "ou".
+  - Exemplo: `gato|cachorro` encontra "gato" ou "cachorro".
+
+- **`()`**: Agrupa uma expressão, permitindo criar grupos que podem ser referenciados ou capturados.
+  - Exemplo: `(abc)+` encontra uma ou mais ocorrências de "abc".
+
+- **`\`**: Caractere de escape, usado para tratar metacaracteres como caracteres literais.
+  - Exemplo: `\.` encontra um ponto literal.
+
+#### 2. Classes de Caracteres Especiais
+
+- **`\d`**: Qualquer dígito (equivalente a `[0-9]`).
+- **`\D`**: Qualquer caractere que *não* é um dígito.
+- **`\w`**: Qualquer caractere alfanumérico (letras, números e underscore).
+- **`\W`**: Qualquer caractere que *não* é alfanumérico.
+- **`\s`**: Qualquer espaço em branco (espaço, tab, nova linha).
+- **`\S`**: Qualquer caractere que *não* é espaço em branco.
+
+#### 3. Quantificadores
+
+Os quantificadores especificam o número de ocorrências do caractere ou grupo que o precede.
+
+- **`*`**: Zero ou mais ocorrências.
+  - Exemplo: `a*` encontra "a", "aa", "aaa" ou uma string vazia.
+  
+- **`+`**: Uma ou mais ocorrências.
+  - Exemplo: `a+` encontra "a", "aa", "aaa" (mas não uma string vazia).
+
+- **`?`**: Zero ou uma ocorrência.
+  - Exemplo: `a?` encontra "a" ou uma string vazia.
+
+- **`{n}`**: Exatamente `n` ocorrências.
+  - Exemplo: `a{3}` encontra "aaa".
+
+- **`{n,}`**: `n` ou mais ocorrências.
+  - Exemplo: `a{2,}` encontra "aa", "aaa", etc.
+
+- **`{n,m}`**: Entre `n` e `m` ocorrências.
+  - Exemplo: `a{2,4}` encontra "aa", "aaa" ou "aaaa".
+
