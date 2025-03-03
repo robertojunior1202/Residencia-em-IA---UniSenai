@@ -1,0 +1,31 @@
+Implementar Busca Profunda - Labirinto
+
+Implementar Busca Lateral - Labirinto
+
+Implementar Busca Gulosa + Heurística - Labirinto
+
+Implementar Busca Competitiva - Jogo da Velha
+
+Projeto Jogo da Velha c/ Streamlit
+
+Trabalho 01 - Implementar algum algoritmo de Busca + Relatório
+
+Implementar Algoritmo Genético no Caixeiro Viajante (TSP)
+
+Implementar Algoritmo Simulated Annealing (SA) no Caixeiro Viajante (TSP)
+
+Implementar Algoritmo Enxame de Partículas (PSO) no Caixeiro Viajante (TSP)
+
+Implementar Algoritmo Busca Tabu (Tabu Search) no Caixeiro Viajante (TSP)
+
+Implementar Algoritmo Colônia de Formigas (ACO) no Caixeiro Viajante (TSP)
+
+Desafio: Implementar um Algoritmo que lê um arquivo .tsp e encontra a melhor rota possível utilizando os métodos de resolução (Combinação de Métodos e identificação do melhor). Testar no ali535.tsp
+
+Desafio Extra 1
+
+Desafio Extra 2 - Aplicar em um problema real. Levantar hipoteses na Cocari de problemas e aplicar
+
+Aulas para Apoio em Metaheurísticas - Apresentação do curso - Heurísticas e Metaheurísticas - 14/10/2021
+
+Trabalho 02 - Implementar algum algoritmo de Meta-Heurística para algum problema de TSP
