@@ -16,23 +16,29 @@ def carregaArquivoTSP(caminho, skiprows,cabecalho):
 #Gera aleatoriamente uma população inicial
 def geraPopulacao(qtd, df, ponto_inicio=None): #passa a quantidade, o df .tsp e o ponto incio (opcional)
     populacao_inicial = []
-    if ponto_inicio == None:
+    
+    if ponto_inicio is None:
+        # Quando não há ponto inicial, gera-se aleatoriamente sem repetições
         for i in range(qtd):
-            vetor_aleatorio = random.sample(range(1, len(df)+1), len(df))
-            vetor_aleatorio.append(vetor_aleatorio[0])
+            vetor_aleatorio = random.sample(range(1, len(df) + 1), len(df))
+            vetor_aleatorio.append(vetor_aleatorio[0])  # Fechar o ciclo
             populacao_inicial.append(vetor_aleatorio)
         return populacao_inicial
     
     else:
+        # Quando há ponto inicial, garante-se que o ponto_inicio não se repita
         for i in range(qtd):
-            vetor = []
-            while len(vetor) < len(df)-1:
+            vetor = [ponto_inicio]
+            numeros_usados = {ponto_inicio}  # Usar um set para evitar repetições
+            
+            while len(vetor) < len(df):
                 valor = random.randint(1, len(df))
-                if valor != ponto_inicio:
+                if valor != ponto_inicio and valor not in numeros_usados:
                     vetor.append(valor)
-            vetor_aleatorio = [ponto_inicio] + vetor
-            vetor_aleatorio.append(vetor_aleatorio[0])
-            populacao_inicial.append(vetor_aleatorio)
+                    numeros_usados.add(valor)  # Marca o valor como usado
+            
+            vetor.append(vetor[0])  # Fechar o ciclo, repetindo o ponto inicial
+            populacao_inicial.append(vetor)
         return populacao_inicial
    
    
@@ -43,7 +49,8 @@ population = geraPopulacao(1000, df,9) #Apagar depois de finalizado
 
 
 #Calculando Fitness, qualificando e encontrando the best
-def calculaFitness(populacao,df, qtd_selecao, the_best):
+def calculaFitness(populacao,df, qtd_selecao):
+    the_best = []
     populacao_qualify = {} 
     #Calcula Fitness
     for rota in populacao:
@@ -71,33 +78,58 @@ def calculaFitness(populacao,df, qtd_selecao, the_best):
                 selecao[0] = (fitness, chave, valor)  # Substitui o pior pelo novo melhor
                 selecao.sort()  # Ordena novamente
     
-    #Validando The Best
-    if len(the_best)>0:
-        if selecao[-1][0]>the_best[0][0]:
-            the_best[0]=selecao[-1]
-    elif len(the_best)==0: 
-        the_best.append(selecao[-1])
+    #Captando o The Best
+    the_best.append(selecao[-1])
         
     return populacao_qualify, selecao, the_best
 
-the_best = []
-#calculaFitness(population,df,10, the_best)    
-populacao_qualify, selecao, the_best = calculaFitness(population,df,10,the_best) 
+#the_best = []
+#calculaFitness(population,df,10)    
+populacao_qualify, selecao, the_best = calculaFitness(population,df,10) 
 
 
-#TRABALHAR NO CROSSOVER
-def crossover(selecao):
+#TRABALHAR NO CROSSOVER e MUTAÇÃO
+def embaralhar_crossover(lista):
+    # Fixar o primeiro e o último valor
+    inicio = lista[0]
+    fim = lista[-1]
+    
+    # Obter os elementos do meio para embaralhar
+    meio = lista[1:-1]
+    
+    # Embaralhar o meio
+    random.shuffle(meio)
+    
+    # Montar a nova lista com os valores fixos no início e no final
+    lista_crossover = [inicio] + meio + [fim]
+    return lista_crossover
+
+
+def crossover(selecao, df):
     selecao_crossover = []
-    ponto_crossover = random.randint(1, len(selecao[0][2]) - 1)
+    pai  = 0
     for pai in range(len(selecao)-1):
-        filho1 = selecao[pai][2][:ponto_crossover] + selecao[pai+1][2][ponto_crossover:]
-        filho2 = selecao[pai+1][2][:ponto_crossover] + selecao[pai][2][ponto_crossover:]
-        selecao_crossover.append(filho1)
-        selecao_crossover.append(filho2)
+        filho1 = selecao[pai][2]
+        filho2 = selecao[pai+1][2]
+        
+        filho1_cross = embaralhar_crossover(filho1)
+        filho2_cross = embaralhar_crossover(filho2)
+        filho3_cross = embaralhar_crossover(filho2)
+        filho4_cross = embaralhar_crossover(filho1)
+        
+        #filho5_cross = geraPopulacao(1, df)
+        #filho6_cross = geraPopulacao(1, df)
+    
+        selecao_crossover.append(filho1_cross)
+        selecao_crossover.append(filho2_cross)
+        selecao_crossover.append(filho3_cross)
+        selecao_crossover.append(filho4_cross)
+        #selecao_crossover.append(filho5_cross)
+        #selecao_crossover.append(filho6_cross)
 
     return selecao_crossover
 
-selecao_crossover = crossover(selecao)
+selecao_crossover = crossover(selecao,df)
 
 
 
